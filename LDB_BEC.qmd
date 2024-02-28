@@ -1,0 +1,16 @@
+---
+title: "LDB_BEC"
+author: "TP"
+format: html
+editor: visual
+---
+
+## Find LDB AOI
+
+```{r}
+library(bcdata)
+library(bcmaps)
+library(terra)
+
+
+```
