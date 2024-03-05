@@ -68,4 +68,10 @@ ggplot(fire_counts, aes(x = FIRE_CAUSE, y = fires_count, fill = FIRE_CAUSE)) +
 # Merge error
 # Merge error
 # Merge error
-# Merge error
+
+# Okay1
+# Okay2
+# Okay3
+# Okay4
+# Okay5
+
