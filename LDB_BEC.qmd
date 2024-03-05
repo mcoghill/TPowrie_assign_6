@@ -1,0 +1,68 @@
+---
+title: "LDB_BEC"
+author: "TP"
+format: html
+editor: visual
+---
+
+## Find LDB AOI
+
+```{r}
+library(bcdata)
+library(bcmaps)
+library(terra)
+library(mapview)
+library(tidyverse)
+library(ggplot2)
+
+ldb <- bcdc_query_geodata("1130248f-f1a3-4956-8b2e-38d29d3e4af7", crs = 3005) |> 
+  filter(PROTECTED_LANDS_NAME == "LAC DU BOIS GRASSLANDS PROTECTED AREA") |> 
+  collect()
+
+bec <- bec(ask = FALSE, force = TRUE)
+
+crs(bec)
+
+ldb_sfc <- st_geometry(ldb)
+
+# Perform the intersection (clip)
+bec_clip <- st_intersection(bec, ldb_sfc)
+
+mapview(bec_clip)
+
+ldb_bec <- bec_clip %>% 
+  mutate(area_hectares = FEATURE_AREA_SQM / 10000)
+
+ldb_bec$area_hectares
+
+ggplot(ldb_bec, aes(x = MAP_LABEL, y = area_hectares)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Area of BEC zones in Lac du Bois", x = "BEC zone variants", y = "Area (hectares)")
+
+ldb_dem <- cded_terra(bec_clip)
+ldb_dem
+
+plot(ldb_bec_dem)
+
+ldb_dem_albers <- project(ldb_dem, "epsg:3005")
+res(ldb_dem_albers)
+
+resamp_grid <- rast(ext(ldb_dem_albers), res = 18, crs = "epsg:3005")
+ldb_dem_albers <- resample(ldb_dem_albers, resamp_grid)
+plot(ldb_dem_albers)
+
+ldb_dem_mask <- mask(ldb_dem_albers, vect(bec_clip))
+writeRaster(ldb_dem_mask, "LDB_DEM.tif", overwrite = TRUE)
+plot(ldb_dem_mask, colNA = "grey")
+
+bec_zone_elevation <- terra::extract(ldb_dem_mask, bec_clip, fun = mean, na.rm = TRUE)
+
+bec_zone_elevation
+
+ldb_bec_elevation <- bec_clip %>% 
+  mutate(mean_elevation = bec_zone_elevation)
+
+ldb_bec_elevation
+
+mapview(bec_clip, col.regions = factor(bec_clip$SUBZONE_NAME))
+```
