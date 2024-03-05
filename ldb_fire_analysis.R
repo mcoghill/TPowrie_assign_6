@@ -63,3 +63,9 @@ ggplot(fire_counts, aes(x = FIRE_CAUSE, y = fires_count, fill = FIRE_CAUSE)) +
   stat_boxplot(geom = "errorbar", width = 0.5, coef = 0) + 
   labs(x = "Fire Cause", y = "Number of Fires per Year") +
   theme_minimal()
+
+# TRY THIS
+# TRY THIS
+# TRY THIS
+# TRY THIS
+# TRY THIS
