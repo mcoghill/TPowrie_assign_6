@@ -64,8 +64,8 @@ ggplot(fire_counts, aes(x = FIRE_CAUSE, y = fires_count, fill = FIRE_CAUSE)) +
   labs(x = "Fire Cause", y = "Number of Fires per Year") +
   theme_minimal()
 
-# TRY THIS
-# TRY THIS
-# TRY THIS
-# TRY THIS
-# TRY THIS
+# Okay
+# Okay
+# Okay
+# Okay
+# Okay
