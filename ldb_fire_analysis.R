@@ -23,6 +23,10 @@ fires_aoi <- bcdc_query_geodata(fire_search[[1]]$id, crs = 3005) %>%
 
 mapview(fires_aoi)
 
+#########
+## 4/4 ##
+#########
+
 #	Summarise this dataset to show how many fires occurred by fire year
 
 fire_year <- fires_aoi %>%
@@ -30,6 +34,10 @@ fire_year <- fires_aoi %>%
   summarize(fires_count = n())
 
 print(fire_year)
+
+#########
+## 2/2 ##
+#########
 
 #	Create another data summary that shows the overall breakdown of fire cause 
 # in the Lac Du Bois Grasslands Protected Area.
@@ -40,9 +48,17 @@ fire_cause <- fires_aoi %>%
 
 print(fire_cause)
 
+#########
+## 2/2 ##
+#########
+
 #	Generate a mapview of the fire points with colors to illustrate the fire cause.
 
 mapview(fires_aoi, zcol = "FIRE_CAUSE")
+
+#########
+## 2/2 ##
+#########
 
 #	Create a boxplot of the mean fires per year by fire cause, 
 # i.e.: the X-axis should show the different fire causes, 
@@ -64,6 +80,18 @@ ggplot(fire_counts, aes(x = FIRE_CAUSE, y = fires_count, fill = FIRE_CAUSE)) +
   labs(x = "Fire Cause", y = "Number of Fires per Year") +
   theme_minimal()
 
+#########
+## 5/5 ##
+#########
+
+
+## Part 1 total:
+
+###########
+## 15/15 ##
+###########
+
+
 # Merge error
 # Merge error
 # Merge error
@@ -75,3 +103,8 @@ ggplot(fire_counts, aes(x = FIRE_CAUSE, y = fires_count, fill = FIRE_CAUSE)) +
 # Okay4
 # Okay5
 
+## Part 1 total:
+
+#########
+## 5/5 ##
+#########

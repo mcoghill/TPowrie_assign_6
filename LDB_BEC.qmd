@@ -28,6 +28,10 @@ ldb_sfc <- st_geometry(ldb)
 # Perform the intersection (clip)
 bec_clip <- st_intersection(bec, ldb_sfc)
 
+#########
+## 4/4 ##
+#########
+
 mapview(bec_clip)
 
 ldb_bec <- bec_clip %>% 
@@ -35,9 +39,23 @@ ldb_bec <- bec_clip %>%
 
 ldb_bec$area_hectares
 
+#########
+## 1/2 ##
+#########
+
+## use the st_area() function to calculate the area of each of the features - the
+## FEATURE_AREA_SQM column contains areas of the entire polygon extending beyond
+## what was clipped.
+
 ggplot(ldb_bec, aes(x = MAP_LABEL, y = area_hectares)) +
   geom_bar(stat = "identity") +
   labs(title = "Area of BEC zones in Lac du Bois", x = "BEC zone variants", y = "Area (hectares)")
+
+#########
+## 4/5 ##
+#########
+
+## Each of the bars should be a different color.
 
 ldb_dem <- cded_terra(bec_clip)
 ldb_dem
@@ -62,7 +80,26 @@ bec_zone_elevation
 ldb_bec_elevation <- bec_clip %>% 
   mutate(mean_elevation = bec_zone_elevation)
 
+#########
+## 4/4 ##
+#########
+
+## There is a more concise way of doing this, but this works as well.
+
 ldb_bec_elevation
 
 mapview(bec_clip, col.regions = factor(bec_clip$SUBZONE_NAME))
+
+#########
+## 1/2 ##
+#########
+
+## use the "zcol" argument instead of the "col.regions" argument.
+
+
+## Part 2 total:
+
+###########
+## 14/17 ##
+###########
 ```
